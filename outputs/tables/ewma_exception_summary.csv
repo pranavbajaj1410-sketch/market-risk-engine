@@ -1,0 +1,2 @@
+model,observations,expected_exceptions,actual_exceptions,expected_exception_rate,actual_exception_rate,exception_difference
+EWMA Parametric Normal,2404,24.04000000000002,47,0.010000000000000009,0.019550748752079867,22.95999999999998

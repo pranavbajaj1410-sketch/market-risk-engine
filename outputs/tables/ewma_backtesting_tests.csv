@@ -1,0 +1,2 @@
+model,observations,expected_exceptions,actual_exceptions,observed_exception_rate,kupiec_lr,kupiec_p_value,probability_after_no_exception,probability_after_exception,independence_lr,independence_p_value,conditional_coverage_lr,conditional_coverage_p_value,reject_conditional_coverage_at_5_percent
+EWMA Parametric Normal,2404,24.04000000000002,47,0.019550748752079867,17.32249418824199,3.154308204384136e-05,0.01867572156196944,0.06382978723404255,3.1279517626467737,0.07696037681386127,20.450445950888763,3.62444977118272e-05,True

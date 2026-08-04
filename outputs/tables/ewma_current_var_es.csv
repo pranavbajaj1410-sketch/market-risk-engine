@@ -1,0 +1,2 @@
+model,confidence_level,lookback,lambda,portfolio_volatility_eur,var_eur,expected_shortfall_eur
+EWMA Parametric Normal,0.99,250,0.94,4631.238565062981,10773.87199001022,12343.242881419761

@@ -1,0 +1,2 @@
+model,confidence_level,observations,simulations,random_seed,portfolio_volatility_eur,var_eur,expected_shortfall_eur,tail_simulations
+Monte Carlo Normal,0.99,250,100000,42,4604.569812463191,10678.73699367417,12301.689881627395,1000

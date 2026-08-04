@@ -1,0 +1,2 @@
+model,confidence_level,decay_factor,observations,effective_tail_probability,var_eur,expected_shortfall_eur,tail_scenarios_used,newest_observation_weight,oldest_observation_weight
+Weighted Historical Simulation,0.99,0.99,250,0.010000000000000009,13422.247377589054,14905.66299603922,3,0.010882085721319856,0.0008909956781008563
