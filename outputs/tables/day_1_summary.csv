@@ -1,0 +1,12 @@
+metric,value,unit
+Portfolio gross exposure,900000.0,EUR
+Recent 95% Historical VaR,7665.15,EUR
+Recent 99% Historical VaR,12669.9,EUR
+Recent 99% Historical ES,14999.77,EUR
+Recent 99% Parametric VaR,10698.74,EUR
+Recent 99% Parametric ES,12257.16,EUR
+Historical VaR exceptions,41.0,exceptions
+Parametric VaR exceptions,46.0,exceptions
+Worst one-day loss,35216.13,EUR
+Worst five-day loss,70083.26,EUR
+Worst twenty-day loss,84178.95,EUR

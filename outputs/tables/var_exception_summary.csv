@@ -1,0 +1,3 @@
+model,observations,expected_exceptions,actual_exceptions,expected_exception_rate,actual_exception_rate,exception_difference
+Historical Simulation,2404,24.04000000000002,41,0.010000000000000009,0.017054908485856904,16.95999999999998
+Parametric Normal,2404,24.04000000000002,46,0.010000000000000009,0.01913477537437604,21.95999999999998

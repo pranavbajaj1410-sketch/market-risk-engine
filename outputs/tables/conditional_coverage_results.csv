@@ -1,0 +1,3 @@
+model,kupiec_lr_statistic,christoffersen_independence_lr,conditional_coverage_lr,conditional_coverage_p_value,reject_conditional_coverage_at_5_percent
+Historical Simulation,9.977090440038978,7.9087454069988326,17.88583584703781,0.00013065922976585132,True
+Parametric Normal,15.984102418245243,9.910964002926562,25.895066421171805,2.3820878413122467e-06,True

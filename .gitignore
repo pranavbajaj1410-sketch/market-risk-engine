@@ -216,3 +216,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Downloaded and generated market data
+data/raw/*.csv
+data/processed/*.csv
+
+# Preserve the folder structure
+!data/raw/.gitkeep
+!data/processed/.gitkeep
