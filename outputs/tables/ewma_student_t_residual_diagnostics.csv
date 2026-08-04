@@ -1,0 +1,2 @@
+observations,mean,volatility,skewness,excess_kurtosis,jarque_bera_statistic,jarque_bera_p_value,reject_normality_at_5_percent,next_day_volatility_eur
+230,0.08618544608359398,1.0695382471512371,-0.39762479150711977,1.2253392226378912,19.165263688977397,6.891533439907631e-05,True,4631.238382989517

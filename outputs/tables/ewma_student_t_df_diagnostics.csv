@@ -1,0 +1,7 @@
+diagnostic,value
+Forecast windows,2404.0
+Degrees of freedom below 5,381.0
+Degrees of freedom below 10,1139.0
+Degrees of freedom above 100,304.0
+"Degrees of freedom above 1,000",242.0
+"Effectively normal share, df above 100",0.1264559068219634

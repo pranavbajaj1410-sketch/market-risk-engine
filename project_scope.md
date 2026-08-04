@@ -54,3 +54,31 @@ Total gross exposure: EUR 900,000.
 - Transaction and funding costs are excluded.
 - Currency conversion is simplified.
 - Historical market relationships are assumed to remain informative.
+
+## Development status
+
+### Completed
+
+- Day 1: Core VaR engine, backtesting and historical stress testing
+- Day 2: EWMA, Weighted Historical Simulation and Monte Carlo VaR
+- Day 3: Student-t models, Filtered Historical Simulation and sensitivity analysis
+
+### Current preferred model
+
+Filtered Historical Simulation with:
+
+- 500-day lookback window
+- EWMA decay factor of 0.94
+- One-day holding period
+- 99% confidence level
+
+The model passes unconditional and combined conditional coverage at the 5%
+level over the common evaluation period, although exception independence
+remains rejected.
+
+### Next development stage
+
+- Marginal VaR
+- Component VaR
+- Incremental VaR
+- Diversification-benefit analysis

@@ -1,0 +1,2 @@
+model,observations,expected_exceptions,actual_exceptions,expected_exception_rate,actual_exception_rate,exception_difference
+EWMA Student-t,2404,24.04000000000002,32,0.010000000000000009,0.013311148086522463,7.9599999999999795

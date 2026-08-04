@@ -1,0 +1,2 @@
+model,confidence_level,lookback,degrees_of_freedom,location_eur,scale_eur,var_eur,expected_shortfall_eur
+Student-t Parametric,0.99,250,5.583369944468866,0.0,3745.03477845008,12069.498543570073,15660.264480627857

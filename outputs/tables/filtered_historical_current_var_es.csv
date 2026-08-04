@@ -1,0 +1,2 @@
+model,confidence_level,decay_factor,observations,residual_observations,forecast_volatility_eur,residual_mean,residual_volatility,residual_skewness,residual_excess_kurtosis,scenario_observations,tail_probability,effective_tail_scenarios,tail_scenarios_with_positive_weight,var_eur,expected_shortfall_eur
+Filtered Historical Simulation,0.99,0.94,250,230,4631.238382989517,0.08618544608359398,1.0695382471512371,-0.39762479150711977,1.2253392226378912,230,0.010000000000000009,2.300000000000002,3,11504.036618038577,16371.677865946105

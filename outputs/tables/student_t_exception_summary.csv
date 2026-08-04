@@ -1,0 +1,2 @@
+model,observations,expected_exceptions,actual_exceptions,expected_exception_rate,actual_exception_rate,exception_difference
+Student-t Parametric,2404,24.04000000000002,31,0.010000000000000009,0.012895174708818636,6.9599999999999795

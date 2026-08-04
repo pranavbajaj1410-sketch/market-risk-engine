@@ -1,46 +1,131 @@
 # Market Risk Engine
 
-A Python-based multi-asset market-risk project implementing VaR, Expected
-Shortfall, model backtesting and historical stress testing.
+A Python-based multi-asset market-risk project implementing Value at Risk
+(VaR), Expected Shortfall (ES), statistical model validation and historical
+stress testing.
+
+The project develops progressively more advanced risk models and compares their
+performance using rolling one-day-ahead out-of-sample forecasts.
 
 ## Project objective
 
-The project demonstrates the development and validation of market-risk
-methodologies for a portfolio containing equity, interest-rate,
-foreign-exchange and commodity exposures.
+The purpose of this project is to demonstrate the development, implementation
+and validation of market-risk methodologies for a portfolio containing equity,
+interest-rate, foreign-exchange and commodity exposures.
 
-## Current functionality
+The project focuses on three practical questions:
 
-- Market-data download and validation
-- Daily position and portfolio P&L
-- Historical Simulation VaR
-- Parametric Normal VaR
-- EWMA Parametric VaR
-- Weighted Historical Simulation
-- Monte Carlo Normal VaR
-- Historical, Parametric and simulated Expected Shortfall
-- Rolling one-day VaR forecasts
-- Kupiec unconditional-coverage test
-- Christoffersen independence test
-- Conditional-coverage test
-- Comparative model-performance ranking
-- Historical stress testing
-- Risk-factor stress contributions
+1. How much could the portfolio lose over a one-day horizon?
+2. Which risk model provides the most reliable forecasts?
+3. Which portfolio exposures drive losses during normal and stressed markets?
 
 ## Initial portfolio
 
-| Risk factor | Exposure |
-|---|---:|
-| Equity index | EUR 250,000 |
-| Government bond proxy | EUR 300,000 |
-| EUR/USD | EUR 200,000 |
-| Gold | EUR 150,000 |
+| Risk factor | Market proxy | Exposure |
+|---|---|---:|
+| Equity index | SPY | EUR 250,000 |
+| Government bond proxy | TLT | EUR 300,000 |
+| EUR/USD | EURUSD=X | EUR 200,000 |
+| Gold | GLD | EUR 150,000 |
 
-Total gross exposure: EUR 900,000.
+**Total gross exposure: EUR 900,000**
+
+The portfolio currently uses fixed linear EUR exposures. Daily position P&L is
+approximated by multiplying each risk-factor return by its corresponding
+notional exposure.
+
+## Current functionality
+
+### Market data and portfolio P&L
+
+- Market-data download and validation
+- Cross-market date alignment
+- Daily risk-factor returns
+- Daily position-level P&L
+- Daily aggregate portfolio P&L
+- Data-quality and missing-value checks
+
+### VaR and Expected Shortfall models
+
+- Historical Simulation VaR
+- Parametric Normal VaR
+- EWMA Parametric Normal VaR
+- Weighted Historical Simulation
+- Monte Carlo Normal VaR
+- Student-t Parametric VaR
+- EWMA Student-t VaR
+- Filtered Historical Simulation
+- Historical, parametric and simulated Expected Shortfall
+
+### Model validation
+
+- Rolling one-day-ahead VaR forecasts
+- Kupiec unconditional-coverage test
+- Christoffersen independence test
+- Christoffersen conditional-coverage test
+- Exception-frequency analysis
+- Exception-clustering diagnostics
+- Common-period model comparison
+- Comparative model-performance ranking
+
+### Distribution and parameter diagnostics
+
+- P&L skewness and excess kurtosis
+- Jarque–Bera normality testing
+- Student-t degrees-of-freedom estimation
+- EWMA-standardized residual analysis
+- Normal versus heavy-tailed model comparison
+- EWMA decay-factor sensitivity analysis
+- Lookback-window sensitivity analysis
+
+### Stress testing
+
+- Worst one-day historical loss
+- Worst five-day cumulative loss
+- Worst twenty-day cumulative loss
+- Risk-factor stress contributions
+- Identification of offsetting and amplifying exposures
+
+## Model development
+
+### Day 1 — Core risk engine
+
+The first notebook implements:
+
+- Historical Simulation VaR and ES
+- Parametric Normal VaR and ES
+- Rolling 99% VaR backtests
+- Kupiec and Christoffersen tests
+- Historical stress testing
+- Risk-factor stress contributions
+
+### Day 2 — Advanced VaR models
+
+The second notebook adds:
+
+- EWMA Parametric Normal VaR
+- Weighted Historical Simulation
+- Monte Carlo Normal VaR
+- Model-performance comparison
+- Comparative backtesting across five models
+
+### Day 3 — Fat-tail and filtered models
+
+The third notebook adds:
+
+- Portfolio distribution diagnostics
+- Student-t Parametric VaR
+- EWMA Student-t VaR
+- Filtered Historical Simulation
+- Decay-factor sensitivity analysis
+- Lookback-window sensitivity analysis
+- Common-period comparison across eight models
 
 ## Main findings
 
-Five one-day 99% VaR models were compared using 2,404 rolling out-of-sample
+### Core and advanced models
+
+The initial five models were evaluated using 2,404 rolling one-day-ahead
 forecasts:
 
 - Historical Simulation
@@ -49,24 +134,119 @@ forecasts:
 - Weighted Historical Simulation
 - Monte Carlo Normal
 
-Weighted Historical Simulation produced the fewest exceptions, with 35
-exceptions compared with approximately 24 expected. However, it still failed
-the Kupiec, Christoffersen independence and conditional-coverage tests.
-
-EWMA Parametric Normal was the only model for which exception independence was
-not rejected at the 5% level. However, it produced 47 exceptions and failed
-overall conditional coverage.
+Weighted Historical Simulation produced the fewest exceptions among these
+models, with 35 exceptions compared with approximately 24 expected. However,
+it still failed unconditional coverage, independence and combined conditional
+coverage.
 
 Parametric Normal and Monte Carlo Normal produced nearly identical risk
-estimates and backtesting results because both use normal returns, rolling
-covariance estimates and fixed linear portfolio exposures.
+estimates and backtesting results because both models use:
 
-All five models failed conditional coverage, indicating that the current
-methods do not fully capture fat tails, volatility-regime changes and stressed
-market dependence.
+- Normally distributed returns
+- Rolling covariance estimates
+- Fixed linear portfolio exposures
 
-The worst twenty-day historical portfolio loss was approximately EUR 84,179,
-driven primarily by the equity exposure.
+All five initial models failed conditional coverage. This indicated that they
+did not adequately represent fat tails, volatility-regime changes and
+stressed-period dependence.
+
+### Evidence of non-normality
+
+The portfolio P&L distribution is materially non-normal.
+
+The full sample has:
+
+- Negative skewness
+- Substantial excess kurtosis
+- A Jarque–Bera p-value close to zero
+
+Normality is also rejected for the most recent 250-day period.
+
+These findings help explain why the normal-distribution models produce too many
+VaR exceptions.
+
+### Student-t models
+
+The Student-t Parametric model substantially improves exception frequency.
+
+The fitted Student-t degrees of freedom vary through time, indicating that the
+severity of tail risk is not constant across market regimes.
+
+Both Student-t Parametric and EWMA Student-t pass unconditional coverage over
+the final common evaluation period. However, their exceptions remain clustered,
+so both models fail the independence and conditional-coverage tests.
+
+The results suggest that heavy-tailed distributions improve the overall number
+of VaR exceptions but do not fully capture the timing of stress events.
+
+### Preferred Filtered Historical Simulation model
+
+Sensitivity analysis was conducted using:
+
+- Lookback windows of 250 and 500 days
+- EWMA decay factors of 0.94, 0.97 and 0.99
+
+The strongest specification was:
+
+```text
+Filtered Historical Simulation
+Lookback window: 500 days
+EWMA decay factor: 0.94
+```
+
+Over the common 2,154-day evaluation period, this model produced:
+
+| Metric | Result |
+|---|---:|
+| Expected exceptions | 21.54 |
+| Actual exceptions | 23 |
+| Observed exception rate | 1.07% |
+| Kupiec p-value | 0.7545 |
+| Independence p-value | 0.0231 |
+| Conditional-coverage p-value | 0.0722 |
+
+The preferred model:
+
+- Passes unconditional coverage at the 5% level
+- Passes combined conditional coverage at the 5% level
+- Fails the standalone independence test
+- Ranks first in the common-period model comparison
+
+It is therefore treated as the strongest candidate model rather than a
+flawless or definitively validated model.
+
+The longer window also increases the number of standardized residual scenarios
+from 230 to 480. At a 99% confidence level, this increases the effective
+Expected Shortfall tail sample from 2.3 to 4.8 scenarios.
+
+### Common-period model ranking
+
+The final eight models were compared over the same 2,154 forecast dates.
+
+The overall diagnostic ranking was:
+
+1. Filtered Historical Simulation — 500 days, lambda 0.94
+2. EWMA Student-t
+3. Student-t Parametric
+4. Weighted Historical Simulation
+5. Historical Simulation
+6. EWMA Parametric Normal
+7. Monte Carlo Normal
+8. Parametric Normal
+
+The comparison shows that models incorporating heavy tails and time-varying
+volatility perform materially better than static normal-distribution models.
+
+### Historical stress result
+
+The worst twenty-day historical portfolio loss was approximately:
+
+```text
+EUR 84,179
+```
+
+The loss was driven primarily by the equity exposure. Gold also contributed
+to the loss, while rates and foreign exchange partially offset the decline.
 
 ## Repository structure
 
@@ -77,22 +257,48 @@ market-risk-engine/
 │   └── processed/
 ├── notebooks/
 │   ├── 01_core_var_engine.ipynb
-│   └── 02_advanced_var_models.ipynb
+│   ├── 02_advanced_var_models.ipynb
+│   └── 03_filtered_historical_and_t_var.ipynb
 ├── outputs/
 │   ├── charts/
 │   └── tables/
 ├── reports/
 ├── src/
 ├── tests/
+├── .gitignore
 ├── project_scope.md
 ├── requirements.txt
 └── README.md
-
 ```
 
 ## Installation
 
-Create and activate a Python virtual environment.
+Clone the repository and move into the project directory:
+
+```bash
+git clone <repository-url>
+cd market-risk-engine
+```
+
+Create a Python virtual environment:
+
+```bash
+python -m venv .venv
+```
+
+Activate the virtual environment.
+
+On Windows:
+
+```bash
+.venv\Scripts\activate
+```
+
+On macOS or Linux:
+
+```bash
+source .venv/bin/activate
+```
 
 Install the required packages:
 
@@ -100,33 +306,101 @@ Install the required packages:
 pip install -r requirements.txt
 ```
 
-Then open and run:
+Open the project in VS Code or Jupyter and run the notebooks in order:
 
 ```text
 notebooks/01_core_var_engine.ipynb
+notebooks/02_advanced_var_models.ipynb
+notebooks/03_filtered_historical_and_t_var.ipynb
 ```
+
+The first notebook downloads and processes the required market data. Later
+notebooks use the processed data and saved outputs generated by the earlier
+notebooks.
+
+## Key output files
+
+Generated results are stored in:
+
+```text
+outputs/tables/
+```
+
+Key tables include:
+
+- Current VaR and Expected Shortfall estimates
+- Rolling VaR forecasts
+- VaR exception summaries
+- Kupiec test results
+- Christoffersen independence results
+- Conditional-coverage results
+- Student-t parameter diagnostics
+- Filtered Historical Simulation sensitivity results
+- Common-period model-validation comparison
+
+Generated charts are stored in:
+
+```text
+outputs/charts/
+```
+
+Key charts include:
+
+- Historical portfolio P&L distribution
+- Rolling VaR backtests
+- Monte Carlo simulated P&L distribution
+- EWMA-standardized residual distribution
+- Filtered Historical scenario distribution
+- Model exception-rate comparison
+- Conditional-coverage comparison
+- Historical stress contributions
 
 ## Important limitations
 
-The current version uses fixed linear exposures and liquid market proxies.
+The current project uses simplified fixed linear exposures and liquid market
+proxies.
 
 It does not yet include:
 
 - Direct bond pricing
 - Yield-curve sensitivities
+- DV01 or key-rate duration
 - Derivative nonlinearities
-- Transaction and funding costs
+- Option Greeks
 - Full portfolio revaluation
+- Transaction costs
+- Funding and liquidity costs
 - Separate currency translation for USD-denominated instruments
+- Time-varying portfolio holdings
+- Formal Expected Shortfall backtesting
+- An untouched holdout period for final parameter validation
+
+The preferred Filtered Historical Simulation parameters were selected using the
+same broad historical period used for model comparison. Future work should test
+the selected model on a separate holdout sample or use nested rolling model
+selection.
 
 ## Planned extensions
 
-- Filtered Historical Simulation
-- Student-t VaR
+- Component VaR
+- Marginal VaR
+- Incremental VaR
+- Diversification-benefit analysis
 - GARCH volatility modelling
-- Component and marginal VaR
-- Fixed-income DV01 and key-rate sensitivities
+- Fixed-income duration and convexity
+- DV01 and key-rate sensitivities
+- Yield-curve stress testing
 - Option Greeks and nonlinear P&L
+- Delta-normal and delta-gamma VaR
+- Full-revaluation Monte Carlo
 - P&L attribution
+- Expected Shortfall backtesting
 - FRTB methodology
 - Model-validation report
+- Automated testing and reusable Python modules
+
+## Disclaimer
+
+This project is intended for educational and portfolio-demonstration purposes.
+The risk estimates should not be interpreted as production-ready trading or
+capital-management measures.

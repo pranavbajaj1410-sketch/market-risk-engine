@@ -1,0 +1,2 @@
+model,confidence_level,decay_factor,observations,residual_observations,degrees_of_freedom,residual_location,residual_scale,forecast_volatility_eur,standardized_var_multiplier,standardized_es_multiplier,var_eur,expected_shortfall_eur
+EWMA Student-t,0.99,0.94,250,230,7.014628367305686,0.0,0.9116267462632269,4631.238382989517,2.7314253339954533,3.4339330628024283,12649.881847069704,15903.362605067357
