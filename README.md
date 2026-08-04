@@ -15,11 +15,15 @@ foreign-exchange and commodity exposures.
 - Daily position and portfolio P&L
 - Historical Simulation VaR
 - Parametric Normal VaR
-- Historical and Parametric Expected Shortfall
+- EWMA Parametric VaR
+- Weighted Historical Simulation
+- Monte Carlo Normal VaR
+- Historical, Parametric and simulated Expected Shortfall
 - Rolling one-day VaR forecasts
 - Kupiec unconditional-coverage test
 - Christoffersen independence test
 - Conditional-coverage test
+- Comparative model-performance ranking
 - Historical stress testing
 - Risk-factor stress contributions
 
@@ -36,15 +40,32 @@ Total gross exposure: EUR 900,000.
 
 ## Main findings
 
-Using a rolling 250-day window, both the 99% Historical Simulation and
-Parametric Normal VaR models produce significantly more exceptions than
-expected.
+Five one-day 99% VaR models were compared using 2,404 rolling out-of-sample
+forecasts:
 
-The Kupiec and Christoffersen tests reject correct conditional coverage for
-both models. The Parametric Normal model performs worse and understates
-empirical tail risk.
+- Historical Simulation
+- Parametric Normal
+- EWMA Parametric Normal
+- Weighted Historical Simulation
+- Monte Carlo Normal
 
-The worst twenty-day historical portfolio loss is approximately EUR 84,179,
+Weighted Historical Simulation produced the fewest exceptions, with 35
+exceptions compared with approximately 24 expected. However, it still failed
+the Kupiec, Christoffersen independence and conditional-coverage tests.
+
+EWMA Parametric Normal was the only model for which exception independence was
+not rejected at the 5% level. However, it produced 47 exceptions and failed
+overall conditional coverage.
+
+Parametric Normal and Monte Carlo Normal produced nearly identical risk
+estimates and backtesting results because both use normal returns, rolling
+covariance estimates and fixed linear portfolio exposures.
+
+All five models failed conditional coverage, indicating that the current
+methods do not fully capture fat tails, volatility-regime changes and stressed
+market dependence.
+
+The worst twenty-day historical portfolio loss was approximately EUR 84,179,
 driven primarily by the equity exposure.
 
 ## Repository structure
@@ -55,7 +76,8 @@ market-risk-engine/
 │   ├── raw/
 │   └── processed/
 ├── notebooks/
-│   └── 01_core_var_engine.ipynb
+│   ├── 01_core_var_engine.ipynb
+│   └── 02_advanced_var_models.ipynb
 ├── outputs/
 │   ├── charts/
 │   └── tables/
@@ -99,12 +121,12 @@ It does not yet include:
 
 ## Planned extensions
 
-- EWMA volatility
-- Weighted Historical Simulation
-- Monte Carlo VaR
+- Filtered Historical Simulation
+- Student-t VaR
+- GARCH volatility modelling
 - Component and marginal VaR
-- Fixed-income sensitivities
-- Option Greeks
+- Fixed-income DV01 and key-rate sensitivities
+- Option Greeks and nonlinear P&L
 - P&L attribution
 - FRTB methodology
 - Model-validation report
