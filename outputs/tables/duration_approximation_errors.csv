@@ -1,0 +1,3 @@
+method,mean_absolute_error_eur,maximum_absolute_error_eur
+Duration only,685.4573532401009,2189.4687178896274
+Duration + convexity,35.3520158151515,130.1015232478021
