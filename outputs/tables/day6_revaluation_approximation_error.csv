@@ -1,0 +1,6 @@
+metric,value
+Mean error,77.65856823370866
+Mean absolute error,101.58505136698525
+Root mean squared error,178.62876168848052
+1% error quantile,-153.55317759965843
+99% error quantile,706.4935959149965
